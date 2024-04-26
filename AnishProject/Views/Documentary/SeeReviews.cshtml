@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AnishProject.Models.DocumentaryReview>
+
+@{
+    ViewData["Title"] = "SeeReviews";
+}
+<head>
+    <style>
+        .table {
+            color: white
+        }
+    </style>
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Documentary)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Documentary.DocumentaryId)
+            </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+
+                        @Html.ActionLink("Delete", "DeleteDocumentaryReview", new { id = item.ReviewId },
+                new { onclick = "return confirm('Are you sure you want to delete?');" })
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+    <p>
+        <input style="background-color:#66878a;border:hidden" type="button" class="button-1" role="button" value="Add Review" onclick="location.href='@Url.Action("AddReview", "Documentary")'" />
+    </p>
+</table>

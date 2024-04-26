@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AnishProject.Models.Movie>
+
+@{
+    ViewData["Title"] = "View";
+}
+<head>
+    <style>
+        .table {
+            color: white
+        }
+    </style>
+</head>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
+            </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="EditMovie" asp-route-id="@item.MovieId">Edit</a> |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MovieId },
+                new { onclick = "return confirm('Are you sure you want to delete?');" }) |
+
+                        <a asp-action="SeeReviews" asp-route-id="@item.MovieId">See Reviews</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="SeeReviews" asp-route-id="@item.MovieId">See Reviews</a>
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+    <p>
+        <input style="background-color:#66878a;border:hidden" type="button" class="button-1" role="button" value="Add Movie" onclick="location.href='@Url.Action("AddMovie", "Movie")'" />
+    </p>
+</table>

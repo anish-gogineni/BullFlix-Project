@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Anish_LookAndFeel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Anish_LookAndFeel.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-image: url('/Images/bkg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white; /* Change text color to white */
+            font-size: 18px; /* Enlarge text size */
+            /* Additional styles for body if needed */
+            /* font-family: Arial, sans-serif; */
+            /* Additional styles for other elements if needed */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #435d4e; /* Green theme */
+            color: #f1f5f1;
+            text-align: center; /* Align header to center */
+            padding: 20px;
+        }
+        #navbarstyle
+        {
+            display:flex;
+            flex-grow:1;
+
+        }
+        footer{
+            text-align:center;
+            margin-top: auto;
+            color: white;
+            padding: 20px;
+        }
+        #right
+        {
+            margin-left:auto;
+            margin-right:2rem;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav style="background-color:#435d4e!important;border:hidden!important" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a style="color:white;font-size:30px" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome To BullFlix</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul id="navbarstyle" class="navbar-nav">
+                        <li class="nav-item">
+                            <a style="color:white" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li id="left" class="nav-item">
+                                <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="ViewAll">Movies</a>
+                            </li>
+                            <li id="left" class="nav-item">
+                                <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="TVShow" asp-action="ViewAll">TV Shows</a>
+                            </li>
+                            <li id="left" class="nav-item">
+                                <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="Documentary" asp-action="ViewAll">Documentaries</a>
+                            </li>
+                        }
+                        <li id ="left" class="nav-item">
+                            <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li id ="right" class="nav-item">
+                                <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li id="right" class="nav-item">
+                                <a style="color:white!important" class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer">
+        <div>
+            &copy; 2024 BullFlix. All rights reserved.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

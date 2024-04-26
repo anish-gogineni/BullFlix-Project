@@ -1,0 +1,53 @@
+﻿@model AnishProject.Models.TvShowReview
+
+@{
+    ViewData["Title"] = "AddReview";
+}
+<head>
+    <style>
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            margin-right: 13rem;
+        }
+    </style>
+</head>
+<h1 style="text-align:center">AddReview</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddReview">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TvShowId" class="control-label"></label>
+                <select asp-for="TvShowId" class="form-control" asp-items="ViewBag.TvShows"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input type="number" asp-for="Rating" min="1" max="5" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div style="padding-top:10px" class="form-group">
+                <input style="background-color:#66878a;border:hidden" type="submit" value="Create" class="btn btn-primary" />
+                <a style="background-color:white;color:#66878a;padding:3.5px" asp-action="SeeReviews">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
